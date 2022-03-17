@@ -33,7 +33,7 @@ public class CategoryDAO {
         return true;
     }
 
-    public List<Category> list() throws SQLException {
+    public List<Category> list() {
         List<Category> categories = new ArrayList<>();
 //        "SELECT id, name, descricao FROM produto;";
         String sql = "SELECT id, name FROM category";
@@ -47,6 +47,8 @@ public class CategoryDAO {
                     categories.add(category);
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return categories;
     }
@@ -72,10 +74,10 @@ public class CategoryDAO {
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
             if (preparedStatement.getUpdateCount() == 0) {
-                System.out.println("Produto não encontrado no banco. Não deletado!");
+                System.out.println("Categoria não encontrada no banco. Não deletada!");
                 return false;
             } else {
-                System.out.println("Produto deletado com sucesso");
+                System.out.println("Categoria deletada com sucesso");
                 return true;
             }
         } catch (SQLException e) {
